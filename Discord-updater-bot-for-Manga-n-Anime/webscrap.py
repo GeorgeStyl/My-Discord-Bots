@@ -1,4 +1,3 @@
-
 import requests
 from bs4 import BeautifulSoup
 
@@ -44,23 +43,34 @@ class_needed    =  "widgettitle"
 # * results holds the HTML text
 results = soup.find(id = id_needed)
 # print("printing results pettified")
-#print(results)
+print("======================================================================")
+print("searching ceo_latest_comics_widget-2 ..... ")
+print("======================================================================")
+print(results)
 # print(results.prettify())
 
 
-def get_current_state(lower_case_html):
+def get_current_state(ceo_latest):
     # ! make the string case IN-sensitive
     # parse the string till find "One Piece Chapter ", along with whitespace
     # then read
     # * 4 chars if chapter is INT
     # * or
     # * 6 if chapter is DECIMAL (dont care if it has more than 1 decimal numbers)
+    print("======================================================================")
+    print("get_current_state() => ceo_latest")
+    print("======================================================================")
+    print(ceo_latest.h3.contents[0])
+    print("======================================================================")
+    response = ceo_latest.h3.contents[0].lower()
+    string_to_find = "One Piece Chapter ".lower()
+    # ###### string_to_find.lower()
     
-    lower_case_html.lower()
-    string_to_find = "One Piece Chapter "
-    string_to_find.lower()
     
-    if  string_to_find in lower_case_html: 
+    for string in ceo_latest.strings:
+        print(string)
+    
+    if  string_to_find in response: 
         
         print("string found")
         # * returns the LAST index of the substring found (last subcharacter of string: " ")
@@ -85,7 +95,7 @@ def get_current_state(lower_case_html):
 # then compare it with the new one 
 # ! check for DOUBLE nums
 # ! should consider it valid too
-get_current_state(results)
+get_current_state(results) 
 
 
 
