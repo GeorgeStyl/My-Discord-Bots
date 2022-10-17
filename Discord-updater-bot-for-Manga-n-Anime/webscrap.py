@@ -1,3 +1,4 @@
+from urllib import response
 import requests
 from bs4 import BeautifulSoup
 
@@ -40,62 +41,55 @@ soup = BeautifulSoup(page.content, "html.parser")
 id_needed       = "ceo_latest_comics_widget-2"
 class_needed    =  "widgettitle"
 
-# * results holds the HTML text
-results = soup.find(id = id_needed)
-# print("printing results pettified")
+# * respond holds the HTML text
+respond = soup.find(id = id_needed)
+# print("printing respond pettified")
 print("======================================================================")
 print("searching ceo_latest_comics_widget-2 ..... ")
-print("======================================================================")
-print(results)
-# print(results.prettify())
+print(respond.li.string)
+
+# print(respond.prettify())
 
 
-def get_current_state(ceo_latest):
-    # ! make the string case IN-sensitive
-    # parse the string till find "One Piece Chapter ", along with whitespace
-    # then read
-    # * 4 chars if chapter is INT
-    # * or
-    # * 6 if chapter is DECIMAL (dont care if it has more than 1 decimal numbers)
-    print("======================================================================")
-    print("get_current_state() => ceo_latest")
-    print("======================================================================")
-    print(ceo_latest.h3.contents[0])
-    print("======================================================================")
-    response = ceo_latest.h3.contents[0].lower()
-    string_to_find = "One Piece Chapter ".lower()
-    # ###### string_to_find.lower()
+def getChapterNum(respond_str):
+    # reads the string 
+    # and returns the chapter number
     
+    respond_str = "One Piece Chapter ".lower()
+    find_str = respond.li.string.lower()
     
-    for string in ceo_latest.strings:
-        print(string)
-    
-    if  string_to_find in response: 
+    if respond_str in find_str:
+        # extract the chapter num
         
-        print("string found")
-        # * returns the LAST index of the substring found (last subcharacter of string: " ")
-        last_index = lower_case_html.rindex(string_to_find) 
-        print("DEBUG:: last_index: %d\n DEBUG:: last_index+1: %d", last_index, last_index+1)
-        chapter_number = ""
-        for i in range(last_index, last_index+4):
-            chapter_number += lower_case_html[i]   
-            
+        chapter_num = [int(word) for word in find_str.split() if word.isdigit()]
+        print(chapter_num)
+        return chapter_num
     else: 
-        # ToDo:: catch the VAlueError 
-        print("ERROR IN get_current_state:: string not found")
+        print("something wrong in getChapterNum()")
+        
+           
+        
 
-    
+
 
 # 2 states:
 # 1) previous state
 # 2) new state
 
 # get the current state (== previous state) 
-# * +1 (1060 => 1061) 
+# * +1 (1062 => 1063) 
 # then compare it with the new one 
 # ! check for DOUBLE nums
 # ! should consider it valid too
-get_current_state(results) 
+
+if getChapterNum(response) == 1063:
+    # TODO:: display it to the screen
+    a =''
+else:
+    # TODO:: display the message to the screen
+    a =''
+    
+# TODO:find a way to keep previous states
 
 
 
