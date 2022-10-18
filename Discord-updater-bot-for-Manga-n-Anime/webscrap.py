@@ -1,13 +1,20 @@
+from http import client
+from pydoc import cli
 from urllib import response
 import requests
 from bs4 import BeautifulSoup
 
+import discord
+import random
+
+
 
 URL = "https://w3.readone-piece.com/"
+
 page = requests.get(URL)
 
-
 soup = BeautifulSoup(page.content, "html.parser")
+
 
 # ! characters like "!, *, ?. @" are used for coloring comments
 # ! using the "Better Comments" extension on VSCode
@@ -92,6 +99,17 @@ else:
 # TODO:find a way to keep previous states
 
 
+# !=============EVENTS====================
+
+TOKEN = '1028805808072441866'
+
+client = discord.Client()
+
+@client.event
+async def on_ready():
+    print('we have logged in as {0.user}'.format(client))
+    
+client.run(TOKEN)
 
 
 
